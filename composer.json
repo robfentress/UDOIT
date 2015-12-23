@@ -4,6 +4,19 @@
     "description" : "The Universal Design Online content Inspection Tool, or UDOIT enables faculty to identify accessibility issues in Canvas by Instructure. It will scan a course, generate a report, and provide resources on how to address common accessibility issues.",
     "keywords": ["instructure", "canvas", "education", "udoit", "ucf"],
     "repositories": [
+        {
+            "url": "https://github.com/ucfcdl/quail-lib.git",
+            "type": "git"
+        },
+        {
+            "url": "https://github.com/DaveChild/Text-Statistics.git",
+            "type": "git"
+        },
+        {
+            "url": "https://github.com/git-mirror/simpletest.git",
+            "type": "git"
+        }
+        
     ],
     "require": {
         "php": ">=5.4.0",
@@ -11,7 +24,10 @@
         "zaininnari/html-minifier": "dev-master",
         "mpdf/mpdf": "dev-master",
         "league/plates": "~3.1",
-        "ext-pdo": "*"
+        "ext-pdo": "*",
+        "ucfcdl/quail-lib": "dev-master",
+        "DaveChild/Text-Statistics": "dev-master",
+        "git-mirror/simpletest": "dev-master"
     },
     "require-dev": {
         "symfony/var-dumper": "*"
