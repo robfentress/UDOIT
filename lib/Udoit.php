@@ -278,6 +278,7 @@ class Udoit
 
                 do {
                     $response  = Request::get($url)->send();
+
                     $the_links = $this->parseLinks($response->headers->toArray()['link']);
 
 
@@ -296,6 +297,7 @@ class Udoit
                 $url = $this->base_uri.'/api/v1/courses/'.$this->course_id.'/pages?page=1&per_page='.$per_page.'&access_token='.$this->api_key;
                 do {
                     $response  = Request::get($url)->send();
+
                     $the_links = $this->parseLinks($response->headers->toArray()['link']);
 
                     foreach ($response->body as $thing) {
@@ -310,6 +312,7 @@ class Udoit
             case 'syllabus':
                 $url           = $this->base_uri.'/api/v1/courses/'.$this->course_id.'/?include[]=syllabus_body&access_token='.$this->api_key;
                 $response      = Request::get($url)->send();
+
                 $the_content[] = $response->body;
 
                 break;
@@ -320,6 +323,7 @@ class Udoit
                     $response = Request::get($url)->send()->body;
 
                     foreach ($response as $r) {
+
                         foreach ($r->items as $item) {
                             $the_content[] = $item;
                         }
@@ -437,6 +441,7 @@ class Udoit
      */
     public static function parseLinks($links)
     {
+
         $links  = explode(',', $links);
         $pretty = [];
 

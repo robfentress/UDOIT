@@ -161,9 +161,11 @@ $(document).ready(function() {
 				},
 				success: function(data){
 					// update display if progress state has changed
-					if(data != old) {
+					if(data != old && data != 'done') {
 						old = data;
 						$('#submit').html('<div id="popup"><div class="circle-white"></div></div> Scanning '+data+'...');
+					} else if(data == 'done') {
+						$('#submit').html('<div id="popup"><div class="circle-white"></div></div> Building report...');
 					}
 				}
 			});
