@@ -193,5 +193,7 @@ switch ($_POST['main_action']) {
                 break;
         }
 
+        var_dump($corrected_error);
+
         break;
 }

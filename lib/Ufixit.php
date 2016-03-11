@@ -520,6 +520,9 @@ class Ufixit
 
         $html = str_replace($error_html, $corrected_error, $html);
 
+        $temp_file = tempnam(sys_get_temp_dir(), 'testname.html');
+        var_dump( $temp_file );
+
         if (!file_exists("file_temp/".$this->curled_file['parent_folder_path'])) {
             if (!@mkdir("file_temp/".$this->curled_file['parent_folder_path'], 0777, true)) {
                 header('HTTP/1.1 403 Forbidden');
