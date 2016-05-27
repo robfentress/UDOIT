@@ -5637,11 +5637,10 @@ class tableDataShouldHaveTh extends quailTableTest
 }
 
 /**
-*  All data tables contain th elements.
-*  Data tables must have th elements while layout tables can not have th elements.
+*  Checking table for fixed width(s) which may affect viewing on mobile devices
 *	@link http://quail-lib.org/test-info/tableDataShouldHaveTh
 */
-class extends quailTableTest
+class tableHasFixedWidth extends quailTableTest
 {
 	/**
 	*	@var int $default_severity The default severity code for this test.
@@ -5658,88 +5657,36 @@ class extends quailTableTest
 		foreach ($this->getAllElements('table') as $table) {
 			$style = $this->css->getStyle($table);
 
-			if (isset($style['width'])) {
-				$temp = substr( trim($style['width']), -2);
+			// error_log( 'Style: '.print_r($style, true) );
 
-				if ( $temp == 'em' || $temp == 'px' ) {
+			if (isset($style['width'])) {
+				$temp = substr( trim($style['width']), -1);
+
+				if ( $temp != '%' ) {
 					$this->addReport($table);
 					break;
 				}
 					
 			}
 
-			if ( $cell->hasAttribute('width') ) {
-				$set_width = trim( $cell->getAttribute('width') );
+			// error_log( print_r($table, true) );
 
-				$temp = substr( $set_width, -2);
+			$len = $table->attributes->length;
 
-				if ( $temp =='em' || $temp == 'px' ) {
-					$this->addReport($table);
-					break 3;
-				}
+			for ($i = 0; $i < $len; $i++) {
+				error_log( 'Attributes: '.print_r($table->attributes->item($i), true) );
 			}
 
-			foreach ($table->childNodes as $child) {
-				if ($this->propertyIsEqual($child, 'tagName', 'tbody') || $this->propertyIsEqual($child, 'tagName', 'thead')) {
-					foreach ($child->childNodes as $tr) {
-						foreach ($tr->childNodes as $cell) {
-							if ($this->propertyIsEqual($cell, 'tagName', 'th') || $this->propertyIsEqual($cell, 'tagName', 'td')) {
-								$style = $this->css->getStyle($table);
+			if ( $table->hasAttribute('width') ) {
+				$set_width = trim( $table->getAttribute('width') );
 
-								if (isset($style['width'])) {
-									$temp = substr( trim($style['width']), -2);
+				error_log( 'set width: '.$set_width );
 
-									if ( $temp == 'em' || $temp == 'px' ) {
-										$this->addReport($table);
-										break 3;
-									}	
-								}
+				$temp = substr( $set_width, -1);
 
-								if ( $cell->hasAttribute('width') ) {
-									$set_width = trim( $cell->getAttribute('width') );
-
-									$temp = substr( $set_width, -2);
-
-									if ( $temp =='em' || $temp == 'px' ) {
-										$this->addReport($table);
-										break 3;
-									}
-								}
-
-							} else {
-								break 3;
-							}
-						}
-					}
-				} elseif ($this->propertyIsEqual($child, 'tagName', 'tr')) {
-					foreach ($child->childNodes as $cell) {
-						if ($this->propertyIsEqual($cell, 'tagName', 'th') || $this->propertyIsEqual($cell, 'tagName', 'td')) {
-							$style = $this->css->getStyle($table);
-
-							if (isset($style['width'])) {
-								$temp = substr( trim($style['width']), -2);
-
-								if ( $temp == 'em' || $temp == 'px' ) {
-									$this->addReport($table);
-									break 2;
-								}	
-							}
-
-							if ( $cell->hasAttribute('width') ) {
-								$set_width = trim( $cell->getAttribute('width') );
-
-								$temp = substr( $set_width, -2);
-
-								if ( $temp =='em' || $temp == 'px' ) {
-									$this->addReport($table);
-									break 2;
-								}
-							}
-
-						} else {
-							break 2;
-						}
-					}
+				if ( $temp != '%' ) {
+					$this->addReport($table);
+					break;
 				}
 			}
 		}
