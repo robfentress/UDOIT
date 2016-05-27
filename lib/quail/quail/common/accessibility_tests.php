@@ -5636,6 +5636,115 @@ class tableDataShouldHaveTh extends quailTableTest
 	}
 }
 
+/**
+*  All data tables contain th elements.
+*  Data tables must have th elements while layout tables can not have th elements.
+*	@link http://quail-lib.org/test-info/tableDataShouldHaveTh
+*/
+class extends quailTableTest
+{
+	/**
+	*	@var int $default_severity The default severity code for this test.
+	*/
+	var $default_severity = QUAIL_TEST_SUGGESTION;
+
+	/**
+	*	The main check function. This is called by the parent class to actually check content
+	*/
+
+	function check()
+	{
+		// Remember: We only need to check the first tr in a table and only if there's a single th in there
+		foreach ($this->getAllElements('table') as $table) {
+			$style = $this->css->getStyle($table);
+
+			if (isset($style['width'])) {
+				$temp = substr( trim($style['width']), -2);
+
+				if ( $temp == 'em' || $temp == 'px' ) {
+					$this->addReport($table);
+					break;
+				}
+					
+			}
+
+			if ( $cell->hasAttribute('width') ) {
+				$set_width = trim( $cell->getAttribute('width') );
+
+				$temp = substr( $set_width, -2);
+
+				if ( $temp =='em' || $temp == 'px' ) {
+					$this->addReport($table);
+					break 3;
+				}
+			}
+
+			foreach ($table->childNodes as $child) {
+				if ($this->propertyIsEqual($child, 'tagName', 'tbody') || $this->propertyIsEqual($child, 'tagName', 'thead')) {
+					foreach ($child->childNodes as $tr) {
+						foreach ($tr->childNodes as $cell) {
+							if ($this->propertyIsEqual($cell, 'tagName', 'th') || $this->propertyIsEqual($cell, 'tagName', 'td')) {
+								$style = $this->css->getStyle($table);
+
+								if (isset($style['width'])) {
+									$temp = substr( trim($style['width']), -2);
+
+									if ( $temp == 'em' || $temp == 'px' ) {
+										$this->addReport($table);
+										break 3;
+									}	
+								}
+
+								if ( $cell->hasAttribute('width') ) {
+									$set_width = trim( $cell->getAttribute('width') );
+
+									$temp = substr( $set_width, -2);
+
+									if ( $temp =='em' || $temp == 'px' ) {
+										$this->addReport($table);
+										break 3;
+									}
+								}
+
+							} else {
+								break 3;
+							}
+						}
+					}
+				} elseif ($this->propertyIsEqual($child, 'tagName', 'tr')) {
+					foreach ($child->childNodes as $cell) {
+						if ($this->propertyIsEqual($cell, 'tagName', 'th') || $this->propertyIsEqual($cell, 'tagName', 'td')) {
+							$style = $this->css->getStyle($table);
+
+							if (isset($style['width'])) {
+								$temp = substr( trim($style['width']), -2);
+
+								if ( $temp == 'em' || $temp == 'px' ) {
+									$this->addReport($table);
+									break 2;
+								}	
+							}
+
+							if ( $cell->hasAttribute('width') ) {
+								$set_width = trim( $cell->getAttribute('width') );
+
+								$temp = substr( $set_width, -2);
+
+								if ( $temp =='em' || $temp == 'px' ) {
+									$this->addReport($table);
+									break 2;
+								}
+							}
+
+						} else {
+							break 2;
+						}
+					}
+				}
+			}
+		}
+	}
+}
 
 /**
 *  Substitutes for table header labels must be terse.
