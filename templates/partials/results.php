@@ -20,7 +20,8 @@
 ?>
 <h1 class="text-center">
 	Report for <?= $this->e($course); ?><br>
-	<small><?= $this->e($error_count); ?> errors, <?= $suggestion_count; ?> suggestions</small>
+	<small><?= $this->e($error_count); ?> errors, <?= $suggestion_count; ?> suggestions</small><br>
+	<button class="btn btn-default btn-s no-print" id="viewSummary">View Error Summary</buutton>
 </h1>
 
 <p>
