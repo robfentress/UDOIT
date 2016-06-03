@@ -6071,7 +6071,7 @@ class tableThShouldHaveScope extends quailTest
 		// error_log( print_r($this, true) );
 
 		foreach( $this->getAllElements('table') as $table ) {
-			foreach ($table->getAllElements('th') as $th) {
+			foreach ($table->getElementsByTagName('th') as $th) {
 				if ($th->hasAttribute('scope')) {
 					if ($th->getAttribute('scope') != 'col' && $th->getAttribute('scope') != 'row') {
 						$this->addReport($table);
