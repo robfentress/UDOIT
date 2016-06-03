@@ -37,7 +37,7 @@ class reportStatic extends quailReporter
 		foreach ($this->guideline->getReport() as $testname => $test) {
 			$severity    = $this->guideline->getSeverity($testname);
 			$translation = $this->guideline->getTranslation($testname);
-***
+
 			if(isset($translation['title'])) {
 				$title = $translation['title'];
 			} else {
@@ -93,19 +93,25 @@ class reportStatic extends quailReporter
 						}
 
 						if ($testname === "tableThShouldHaveScope") {
-							error_log( print_r($problem, true) );
-							// foreach ($problem->element->attributes as $name) {
-							// 	if ($name->name === "style") {
-							// 		$styleValue = $name->value;
-							// 		$hexColors  = [];
+							$headers = [];
 
-							// 		preg_match_all("/(#[0-9a-f]{6}|#[0-9a-f]{3})/", $styleValue, $hexColors);
+							foreach ( $problem->element->getElementsByTagName('th') as $th ) {
+								//error_log( print_r($th->ownerDocument->saveHTML($th), true) );
 
-							// 		$hexColors = array_unique($hexColors[0]);
-							// 	}
-							// }
+								if ($th->hasAttribute('scope')) {
+									if ($th->getAttribute('scope') != 'col' && $th->getAttribute('scope') != 'row') {
+										array_push($headers, $th->ownerDocument->saveHTML($th) );
+									}
+								} else {
+									array_push($headers, $th->ownerDocument->saveHTML($th) );
+								}
 
-							$testResult['headers'] = NULL;
+							}
+
+							error_log( print_r($headers, true) );
+							$headers = array_unique($headers);
+
+							$testResult['headers'] = $headers;
 						}
 
 						$testResult['text_type']	= $problem->message;
