@@ -291,11 +291,15 @@ function isYouTubeVideo($link_url, $regex)
 																	<?php break; ?>
 																<?php case "tableThShouldHaveScope": ?>
 																	<div class="input-group">
-																		<select class="form-control" name="newcontent">
-																			<option value="col">col</option>
-																			<option value="row">row</option>
-																		</select>
-																		<span class="input-group-btn">
+																		<?php foreach ($item->headers as $th): ?>
+																			<label>Scope of table header: <pre><?= $th ?></pre><br />
+																				<select class="form-control" name="newcontent">
+																					<option value="col">col</option>
+																					<option value="row">row</option>
+																				</select>
+																			</label>
+																		<?php endforeach; ?>
+																		<span class="input-group-btn clear">
 																			<button class="submit-content btn btn-default" type="submit">Submit</button>
 																		</span>
 																	</div>
