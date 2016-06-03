@@ -37,7 +37,7 @@ class reportStatic extends quailReporter
 		foreach ($this->guideline->getReport() as $testname => $test) {
 			$severity    = $this->guideline->getSeverity($testname);
 			$translation = $this->guideline->getTranslation($testname);
-
+***
 			if(isset($translation['title'])) {
 				$title = $translation['title'];
 			} else {
@@ -90,6 +90,22 @@ class reportStatic extends quailReporter
 								$testResult['back_color'] = $hexColors[0];
 								$testResult['fore_color'] = $hexColors[1];
 							}
+						}
+
+						if ($testname === "tableThShouldHaveScope") {
+							error_log( print_r($problem, true) );
+							// foreach ($problem->element->attributes as $name) {
+							// 	if ($name->name === "style") {
+							// 		$styleValue = $name->value;
+							// 		$hexColors  = [];
+
+							// 		preg_match_all("/(#[0-9a-f]{6}|#[0-9a-f]{3})/", $styleValue, $hexColors);
+
+							// 		$hexColors = array_unique($hexColors[0]);
+							// 	}
+							// }
+
+							$testResult['headers'] = NULL;
 						}
 
 						$testResult['text_type']	= $problem->message;
