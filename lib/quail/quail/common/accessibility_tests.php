@@ -6068,6 +6068,8 @@ class tableThShouldHaveScope extends quailTest
 	*/
 	function check()
 	{
+		error_log( print_r($this, true) );
+
 		foreach ($this->getAllElements('th') as $th) {
 			if ($th->hasAttribute('scope')) {
 				if ($th->getAttribute('scope') != 'col' && $th->getAttribute('scope') != 'row') {
