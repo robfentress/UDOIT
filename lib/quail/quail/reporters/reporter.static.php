@@ -37,7 +37,7 @@ class reportStatic extends quailReporter
 		foreach ($this->guideline->getReport() as $testname => $test) {
 			$severity    = $this->guideline->getSeverity($testname);
 			$translation = $this->guideline->getTranslation($testname);
-***
+
 			if(isset($translation['title'])) {
 				$title = $translation['title'];
 			} else {
@@ -94,6 +94,7 @@ class reportStatic extends quailReporter
 
 						if ($testname === "tableThShouldHaveScope") {
 							error_log( print_r($problem, true) );
+							
 							// foreach ($problem->element->attributes as $name) {
 							// 	if ($name->name === "style") {
 							// 		$styleValue = $name->value;
