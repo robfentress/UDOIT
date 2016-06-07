@@ -93,11 +93,11 @@ class reportStatic extends quailReporter
 						}
 
 						if ($testname === "tableThShouldHaveScope") {
-							error_log( print_r($problem, true) );
+							//error_log( print_r($problem, true) );
 							$headers = [];
 
 							foreach ( $problem->element->getElementsByTagName('th') as $th ) {
-								error_log( print_r($th->ownerDocument, true) );
+								error_log( print_r($th->ownerDocument->saveHTML($th), true) );
 
 								if ($th->hasAttribute('scope')) {
 									if ($th->getAttribute('scope') != 'col' && $th->getAttribute('scope') != 'row') {
