@@ -97,6 +97,8 @@ class reportStatic extends quailReporter
 							$headers = [];
 
 							foreach ( $problem->element->getElementsByTagName('th') as $th ) {
+								error_log( print_r($th->ownerDocument, true) );
+
 								if ($th->hasAttribute('scope')) {
 									if ($th->getAttribute('scope') != 'col' && $th->getAttribute('scope') != 'row') {
 										array_push($headers, $th->ownerDocument->saveHTML($th) );
