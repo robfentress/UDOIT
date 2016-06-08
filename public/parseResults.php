@@ -292,7 +292,7 @@ function isYouTubeVideo($link_url, $regex)
 																<?php case "tableThShouldHaveScope": ?>
 																	<div class="input-group">
 																		<?php foreach ($item->headers as $th): ?>
-																			<label style="display: block;">Scope of table header: <pre><?= $th ?></pre>
+																			<label>Scope of table header: <pre style="display: inline-block;"><?= htmlspecialchars( $th ) ?></pre>
 																				<select class="form-control" name="newcontent">
 																					<option value="col">col</option>
 																					<option value="row">row</option>
