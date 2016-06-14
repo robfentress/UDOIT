@@ -113,7 +113,7 @@ function isYouTubeVideo($link_url, $regex)
 								<?php endif; ?>
 
 								<?php if (count($report->suggestion) > 0): ?>
-									<span class="label label-primary"><span class="glyphicon glyphicon-info-sign"></span> <?= count($report->suggestion); ?> Suggestions</span>  
+									<span class="label label-primary"><span class="glyphicon glyphicon-info-sign"></span> <?= count($report->suggestion); ?> Suggestions</span>
 								<?php endif; ?>
 							</div>
 						</div>
@@ -155,7 +155,7 @@ function isYouTubeVideo($link_url, $regex)
 												<?php if ($item->type == "cssTextHasContrast" || $item->type == "imgHasAlt" || $item->type == "imgNonDecorativeHasAlt" || $item->type == "tableDataShouldHaveTh" || $item->type == "tableThShouldHaveScope" || $item->type === "headersHaveText" || $item->type == "aMustContainText" || $item->type == "imgAltIsDifferent" || $item->type == "imgAltIsTooLong"): ?>
 													<p class="fix-success hidden"><?= $instance; ?>. <span class="label label-success margin-left-small" style="margin-top: -2px;">Done!</span></p>
 												<?php endif; ?>
-												
+
 												<div id="collapse-<?= $report->id; ?>-<?= $issue_count; ?>" class="collapse in fade margin-top-small">
 													<?php if ($item->html): ?>
 														<p class="instance"><?= $instance; ?>. <a class="viewError" href="#viewError">View the source of this issue</a><a class="closeError hidden" href="#closeError">&nbsp;Close this view&nbsp;</a></p>
@@ -291,11 +291,15 @@ function isYouTubeVideo($link_url, $regex)
 																	<?php break; ?>
 																<?php case "tableThShouldHaveScope": ?>
 																	<div class="input-group">
-																		<select class="form-control" name="newcontent">
-																			<option value="col">col</option>
-																			<option value="row">row</option>
-																		</select>
-																		<span class="input-group-btn">
+																		<?php foreach ($item->headers as $th): ?>
+																			<label>Scope of table header: <pre style="display: inline-block;"><?= htmlspecialchars( $th ) ?></pre>
+																				<select class="form-control" name="newcontent">
+																					<option value="col">col</option>
+																					<option value="row">row</option>
+																				</select>
+																			</label>
+																		<?php endforeach; ?>
+																		<span class="input-group-btn clear">
 																			<button class="submit-content btn btn-default" type="submit">Submit</button>
 																		</span>
 																	</div>
@@ -431,7 +435,7 @@ function isYouTubeVideo($link_url, $regex)
 																			<input class="hidden back-color" type="text" name="newcontent[1]" value="<?= $item->back_color; ?>">
 																		<?php endif; ?>
 																		<input class="hidden fore-color" type="text" name="newcontent[0]" value="<?= $item->fore_color; ?>">
-																		
+
 																		<label><input name="add-bold" type="checkbox" value="bold" />&nbsp;Make this text <span style="font-weight: 900;">bold</span></label>
 																		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 																		<label><input name="add-italic" type="checkbox" value="italic" />&nbsp;Make this text <span style="font-style: italic;">italicized</span></label>

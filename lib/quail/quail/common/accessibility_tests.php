@@ -1,9 +1,9 @@
 <?php
 
 // include_once('../config/localConfig.php');
-	
 
-/** 
+
+/**
 *    QUAIL - QUAIL Accessibility Information Library
 *    Copyright (C) 2009 Kevin Miller
 *
@@ -1196,7 +1196,7 @@ class cssTextHasContrast extends quailColorTest
 
 				if (isset($style['font-weight'])) {
 					preg_match_all('!\d+!', $style['font-weight'], $matches);
-					
+
 					if (count($matches) > 0) {
 						if ($matches >= 700) {
 							$bold = true;
@@ -1285,7 +1285,7 @@ class cssTextStyleEmphasize extends quailColorTest
 
 				if (isset($style['font-weight'])) {
 					preg_match_all('!\d+!', $style['font-weight'], $matches);
-					
+
 					if (count($matches) > 0) {
 						if ($matches >= 700) {
 							$bold = true;
@@ -2897,7 +2897,7 @@ class noHeadings extends quailTest
 	function check()
 	{
 		global $doc_length;
-		
+
 		$elements = $this->getAllElements('p');
 
 		$document_string = "";
@@ -6068,13 +6068,19 @@ class tableThShouldHaveScope extends quailTest
 	*/
 	function check()
 	{
-		foreach ($this->getAllElements('th') as $th) {
-			if ($th->hasAttribute('scope')) {
-				if ($th->getAttribute('scope') != 'col' && $th->getAttribute('scope') != 'row') {
-					$this->addReport($th);
+		// error_log( print_r($this, true) );
+
+		foreach( $this->getAllElements('table') as $table ) {
+			foreach ($table->getElementsByTagName('th') as $th) {
+				if ($th->hasAttribute('scope')) {
+					if ($th->getAttribute('scope') != 'col' && $th->getAttribute('scope') != 'row') {
+						$this->addReport($table);
+						break;
+					}
+				} else {
+					$this->addReport($table);
+					break;
 				}
-			} else {
-				$this->addReport($th);
 			}
 		}
 	}

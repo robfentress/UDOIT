@@ -92,6 +92,28 @@ class reportStatic extends quailReporter
 							}
 						}
 
+						if ($testname === "tableThShouldHaveScope") {
+							$headers = [];
+
+							foreach ( $problem->element->getElementsByTagName('th') as $th ) {
+								//error_log( print_r($th->ownerDocument->saveHTML($th), true) );
+
+								if ($th->hasAttribute('scope')) {
+									if ($th->getAttribute('scope') != 'col' && $th->getAttribute('scope') != 'row') {
+										array_push($headers, $th->ownerDocument->saveHTML($th) );
+									}
+								} else {
+									array_push($headers, $th->ownerDocument->saveHTML($th) );
+								}
+
+							}
+
+							error_log( print_r($headers, true) );
+							$headers = array_unique($headers);
+
+							$testResult['headers'] = $headers;
+						}
+
 						$testResult['text_type']	= $problem->message;
 						$testResult['type']   	= $testname;
 						$testResult['lineNo'] 	= $problem->line;
